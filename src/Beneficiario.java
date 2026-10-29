@@ -6,8 +6,8 @@ public class Beneficiario extends Usuario{
     private String cep;
     private String status;
 
-    public Beneficiario(String nome, String cpf, String senhaAcesso, String email, String telefone, String dataNascimento, String nomeResponsavel, String cpfResponsavel, String telefoneResponsavel, String emailResponsavel, String cep, String status) {
-        super(nome, cpf, senhaAcesso, email, telefone, dataNascimento);
+    public Beneficiario(String nome, String cpf, String senhaAcesso, String email, String telefone, String dataNascimento, int verificadorLogin, String nomeResponsavel, String cpfResponsavel, String telefoneResponsavel, String emailResponsavel, String cep, String status) {
+        super(nome, cpf, senhaAcesso, email, telefone, dataNascimento, verificadorLogin);
         this.nomeResponsavel = nomeResponsavel;
         this.cpfResponsavel = cpfResponsavel;
         this.telefoneResponsavel = telefoneResponsavel;

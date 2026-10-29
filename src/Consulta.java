@@ -96,7 +96,7 @@ public class Consulta {
     }
 
     public void exibirStatus(){
-        System.out.println("------------Status da Consulta------------");
+        System.out.println("--------------------Status da Consulta--------------------");
         System.out.println("Nome Beneficiário: "+ this.getNomeBeneficiario());
         System.out.println("Nome Dentista: "+ this.getNomeDentista());
         System.out.println("Data e Horário da Consulta: "+ this.getDataConsulta()+ ", "+this.getHorarioConsulta());
@@ -105,9 +105,11 @@ public class Consulta {
 
     public boolean atualizarStatusConsulta(String novoStatus){
         if(novoStatus.equals(this.status)){
+            System.out.println("----------------------------------------------------------");
             System.out.println("O status atual já é "+ this.status);
             return false;
         } else {
+            System.out.println("----------------------------------------------------------");
             this.status = novoStatus;
             System.out.println("Status ajustado para "+ novoStatus);
             return true;

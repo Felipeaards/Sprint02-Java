@@ -104,7 +104,7 @@ public class Prontuario {
     }
 
     public void exibirInformacoesProntuario(){
-        System.out.println("--------------------Prontuário--------------------");
+        System.out.println("-----------------------Prontuário------------------------");
         System.out.println("Nome do Dentista: "+ this.getNomeDentista());
         System.out.println("CRO: "+ this.getCro());
         System.out.println("Nome do Beneficiário: "+ this.getNomeBeneficiario());

@@ -54,7 +54,7 @@ public class Doacao {
     }
 
     public void exibirInformacoesDoacao(){
-        System.out.println("-----------Informações da Doação-------------");
+        System.out.println("-------------------Informações Doação--------------------");
         System.out.println("Nome do Doador: "+ this.getNomeDoador());
         System.out.println("Documento do Doador: "+ this.getDocumentoDoador());
         System.out.println("Valor Doado: "+ this.getValorDoado());

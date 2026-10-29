@@ -84,7 +84,7 @@ public class Clinica {
     }
 
     public void exibirInformacoesClinica(){
-        System.out.println("---------------Informações da Clinica---------------");
+        System.out.println("------------------Informações da Clinica------------------");
         System.out.println("Nome da Clinica: "+ this.getNomeClinica());
         System.out.println("Endereço da Clinica: "+ this.getEndereco());
         System.out.println("Dias e Horários de funcionamento: "+ this.getDatasFuncionamento()+ ", das "+ this.getHorarioAbertura()+" até as "+ this.getHorarioFechamento());
@@ -92,9 +92,11 @@ public class Clinica {
 
     public boolean atualizarHorarioAbertura(String novoHorarioAbertura){
         if (this.horarioAbertura.equals(novoHorarioAbertura)){
+            System.out.println("----------------------------------------------------------");
             System.out.println("O Horário de abertura é igual ao horario anterior");
             return false;
         } else{
+            System.out.println("----------------------------------------------------------");
             this.horarioAbertura = novoHorarioAbertura;
             System.out.println("Horario de abertura atualizado");
             return true;
@@ -103,9 +105,11 @@ public class Clinica {
 
     public boolean atualizarHorarioAFechamento(String novoHorarioFechamento){
         if (this.horarioFechamento.equals(novoHorarioFechamento)){
+            System.out.println("----------------------------------------------------------");
             System.out.println("O Horário de fechamento é igual ao horario anterior");
             return false;
         } else{
+            System.out.println("----------------------------------------------------------");
             this.horarioFechamento = novoHorarioFechamento;
             System.out.println("Horario de fechamento atualizado");
             return true;

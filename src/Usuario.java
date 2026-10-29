@@ -5,14 +5,16 @@ public abstract class Usuario {
     private String email;
     private String telefone;
     private String dataNascimento;
+    private int verificadorLogin = 0;
 
-    public Usuario(String nome, String cpf, String senhaAcesso, String email, String telefone, String dataNascimento) {
+    public Usuario(String nome, String cpf, String senhaAcesso, String email, String telefone, String dataNascimento, int verificadorLogin) {
         this.nome = nome;
         this.cpf = cpf;
         this.senhaAcesso = senhaAcesso;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
+        this.verificadorLogin = verificadorLogin;
     }
 
     public String getNome() {
@@ -63,17 +65,44 @@ public abstract class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public boolean realizarLogin(String identificador, String senhaAcesso){
-        if(identificador.equals(cpf) && senhaAcesso.equals(getSenhaAcesso())){
-            System.out.println("Login realizado com sucesso!!");
-            return true;
-        } else {
-            System.out.println("Identificador ou Senha de Acesso incorretos, favor tentar novamente");
+    public int getVerificadorLogin() {
+        return verificadorLogin;
+    }
+
+    public void setVerificadorLogin(int verificadorLogin) {
+        this.verificadorLogin = verificadorLogin;
+    }
+
+    public boolean realizarLogin(String cpf, String senhaAcesso) {
+        if (getVerificadorLogin() == 0) {
+            if (cpf.equals(getCpf()) && senhaAcesso.equals(getSenhaAcesso())) {
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Verificando os dados.....");
+                System.out.println("Login realizado com sucesso!!");
+                setVerificadorLogin(1);
+                return true;
+            } else {
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Verificando os dados.....");
+                System.out.println("CPF ou Senha de Acesso incorretos, favor tentar novamente");
+                return false;
+            }
+        } else{
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Verificando.....");
+            System.out.println("Você já está logado, não é possível realizar o login novamente. Faça Logout primeiro.");
             return false;
         }
     }
 
     public void realizarLogout(){
-        System.out.println("Logout realizado com sucesso!!");
+        if(getVerificadorLogin() == 1){
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Verificando.....");
+            System.out.println("Logout realizado com sucesso!!");
+            setVerificadorLogin(0);
+        } else{
+            System.out.println("Você já está deslogado, não é possível realizar o Logout");
+        }
     }
 }
