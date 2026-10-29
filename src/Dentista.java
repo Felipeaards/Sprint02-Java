@@ -73,56 +73,82 @@ public class Dentista extends Usuario{
     }
 
     public boolean cancelarConsulta(Consulta consulta, Beneficiario beneficiario, String dataConsulta){
-        if(beneficiario.getCpf().equals(consulta.getCpfBeneficiario())){
-            if(consulta.getDataConsulta().equals(dataConsulta)){
-                System.out.println("Consulta cancelada!");
-                consulta.atualizarStatusConsulta("Cancelada");
-                return true;
+        if(getVerificadorLogin() == 1) {
+            if(beneficiario.getCpf().equals(consulta.getCpfBeneficiario())){
+                if(consulta.getDataConsulta().equals(dataConsulta)){
+                    System.out.println("Consulta cancelada!");
+                    consulta.atualizarStatusConsulta("Cancelada");
+                    return true;
+                } else{
+                    System.out.println("Não existe consulta para essa data");
+                    return false;
+                }
             } else{
-                System.out.println("Não existe consulta para essa data");
+                System.out.println("O Beneficiário não tem nenhuma consulta marcada");
                 return false;
             }
         } else{
-            System.out.println("O Beneficiário não tem nenhuma consulta marcada");
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
             return false;
         }
     }
 
     public boolean marcarConsulta(Beneficiario beneficiario, Consulta consulta, String dataConsulta){
-        if(beneficiario.getCpf().equals(consulta.getCpfBeneficiario()) && consulta.getStatus().equals("Realizado")){
-            System.out.println("Nova consulta marcada para o dia "+ dataConsulta);
-            consulta.setDataConsulta(dataConsulta);
-            return true;
-        } else if (beneficiario.getCpf().equals(consulta.getCpfBeneficiario()) && !consulta.getStatus().equals("Realizada")) {
-            System.out.println("O Beneficiário já tem uma consulta marcada para a data "+ consulta.getDataConsulta());
-            return false;
-        } else {
-            System.out.println("O Beneficiário não tem registro no sistema. Favor entrar em contato com a Turma Do Bem para que eles informem o dentista parceiro mais próximo de sua localização");
+        if(getVerificadorLogin() == 1) {
+            if(beneficiario.getCpf().equals(consulta.getCpfBeneficiario()) && consulta.getStatus().equals("Realizada")){
+                System.out.println("Nova consulta marcada para o dia "+ dataConsulta);
+                consulta.setDataConsulta(dataConsulta);
+                return true;
+            } else if (beneficiario.getCpf().equals(consulta.getCpfBeneficiario()) && !consulta.getStatus().equals("Realizada")) {
+                System.out.println("O Beneficiário já tem uma consulta marcada para a data "+ consulta.getDataConsulta());
+                return false;
+            } else {
+                System.out.println("O Beneficiário não tem registro no sistema. Favor entrar em contato com a Turma Do Bem para que eles informem o dentista parceiro mais próximo de sua localização");
+                return false;
+            }
+        } else{
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
             return false;
         }
     }
 
     public boolean preencherProntuario(Prontuario prontuario, String nomeBeneficiario, String cpfBeneficiario, String anamneseBeneficiario, String observacoesCasoAtual, String diagnostico, String metodoTratamento, String evolucaoTratamento, String observacoes){
-        if(!prontuario.getCpfBeneficiario().equals(cpfBeneficiario)) {
-            Prontuario prontuarioo = new Prontuario(getNome(), getCro(), nomeBeneficiario, cpfBeneficiario, anamneseBeneficiario, observacoesCasoAtual, diagnostico, metodoTratamento, evolucaoTratamento, observacoes);
-            System.out.println("Prontuário Preenchido!!");
-            return true;
+        if(getVerificadorLogin() == 1) {
+            if(!prontuario.getCpfBeneficiario().equals(cpfBeneficiario)) {
+                Prontuario prontuarioo = new Prontuario(getNome(), getCro(), nomeBeneficiario, cpfBeneficiario, anamneseBeneficiario, observacoesCasoAtual, diagnostico, metodoTratamento, evolucaoTratamento, observacoes);
+                System.out.println("Prontuário Preenchido!!");
+                return true;
+            } else{
+                System.out.println("O Prontuário desse Beneficiário já foi criado, favor usar a função de Atualizar Prontuário caso queira alterar alguma informação");
+                return false;
+            }
         } else{
-            System.out.println("O Prontuário desse Beneficiário já foi criado, favor usar a função de Atualizar Prontuário caso queira alterar alguma informação");
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
+            return false;
+        }
+
+    }
+
+    public boolean atualizarProntuario(Prontuario prontuario, String cpfBeneficiario, String novaEvolucao, String novasObservacoes){
+        if(getVerificadorLogin() == 1) {
+            if (prontuario.getCpfBeneficiario().equals(cpfBeneficiario)){
+                prontuario.setEvolucaoTratamento(novaEvolucao);
+                prontuario.setObservacoesCasoAtual(novasObservacoes);
+                System.out.println("As informações foram atualizadas com sucesso");
+                return true;
+            } else{
+                System.out.println("O Beneficiário informado ainda não tem um prontuário, favor utilizar a função Preencher Prontuário");
+                return false;
+            }
+        } else{
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
             return false;
         }
     }
 
-    public boolean atualizarProntuario(Prontuario prontuario, String cpfBeneficiario, String novaEvolucao, String novasObservacoes){
-        if (prontuario.getCpfBeneficiario().equals(cpfBeneficiario)){
-            prontuario.setEvolucaoTratamento(novaEvolucao);
-            prontuario.setObservacoesCasoAtual(novasObservacoes);
-            System.out.println("As informações foram atualizadas com sucesso");
-            return true;
-        } else{
-            System.out.println("O Beneficiário informado ainda não tem um prontuário, favor utilizar a função Preencher Prontuário");
-            return false;
-        }
-    }
 
 }

@@ -6,7 +6,7 @@ public class main {
 
         clinica01.exibirInformacoesClinica();
         clinica01.atualizarHorarioAbertura("08:00");
-        clinica01.atualizarHorarioAFechamento("17:00");
+        clinica01.atualizarHorarioFechamento("17:00");
         clinica01.exibirInformacoesClinica();
 
 

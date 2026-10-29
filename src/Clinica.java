@@ -103,7 +103,7 @@ public class Clinica {
         }
     }
 
-    public boolean atualizarHorarioAFechamento(String novoHorarioFechamento){
+    public boolean atualizarHorarioFechamento(String novoHorarioFechamento){
         if (this.horarioFechamento.equals(novoHorarioFechamento)){
             System.out.println("----------------------------------------------------------");
             System.out.println("O Horário de fechamento é igual ao horario anterior");
