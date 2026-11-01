@@ -17,7 +17,9 @@ public abstract class Doador extends Usuario{
     public void consultarBeneficiario(Beneficiario beneficiario){
         if(getVerificadorLogin() == 1) {
             System.out.println("----------------------------------------------------------");
+            beneficiario.setVerificadorLogin(1);
             beneficiario.exibirInfo();
+            beneficiario.setVerificadorLogin(0);
         } else{
             System.out.println("----------------------------------------------------------");
             System.out.println("Realize login primeiro para realizar essa função");

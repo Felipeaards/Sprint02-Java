@@ -97,15 +97,20 @@ public class Beneficiario extends Usuario{
             if(consulta.getCpfBeneficiario().equals(getCpf())){
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Verificando se existem consultas marcadas para "+ dataConsulta+"........");
-                if(consulta.getDataConsulta().equals(dataConsulta) && !consulta.getStatus().equals("Cancelada")){
-                    System.out.println("Consulta encontrada na data "+ dataConsulta+"!!");
-                    System.out.println("Aguarde........");
-                    System.out.println("Cancelamento realizado com sucesso!!");
-                    consulta.setStatus("Cancelada");
-                    return true;
+                if(consulta.getDataConsulta().equals(dataConsulta)){
+                    if(!consulta.getStatus().equals("Cancelada")) {
+                        System.out.println("Consulta encontrada na data " + dataConsulta + "!!");
+                        System.out.println("Aguarde........");
+                        System.out.println("Cancelamento realizado com sucesso!!");
+                        consulta.setStatus("Cancelada");
+                        return true;
+                    }else {
+                        System.out.println("A consulta marcada para a data " + dataConsulta + " já está cancelada.");
+                        return false;
+                    }
                 }
                 else{
-                    System.out.println("A consulta marcada para a data "+dataConsulta+" já está cancelada.");
+                    System.out.println("Não existe consulta marcada para a data "+dataConsulta);
                     return false;
                 }
             } else{
@@ -120,11 +125,11 @@ public class Beneficiario extends Usuario{
         }
     }
 
-    public void solicitarProntuario(Prontuario meuProntuario){
+    public void solicitarProntuario(Prontuario prontuario){
         if(getVerificadorLogin() == 1) {
             System.out.println("----------------------------------------------------------");
             System.out.println("Solicitando informações de prontuário.......");
-            meuProntuario.exibirInformacoesProntuario();
+            prontuario.exibirInformacoesProntuario();
         } else{
             System.out.println("----------------------------------------------------------");
             System.out.println("Realize login primeiro para realizar essa função");
