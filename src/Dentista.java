@@ -39,8 +39,8 @@ public class Dentista extends Usuario{
             if(beneficiario.getCpf().equals(consulta.getCpfBeneficiario())){
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Paciente encontrado! Realizando consulta na data "+consulta.getDataConsulta());
-                consulta.atualizarStatusConsulta("Realizada");
                 System.out.println("Consulta realizada com sucesso!!!");
+                consulta.atualizarStatusConsulta("Realizada");
                 return true;
             } else{
                 System.out.println("O paciente não foi encontrado");
@@ -57,12 +57,12 @@ public class Dentista extends Usuario{
         if(getVerificadorLogin() == 1) {
             if(beneficiario.getStatus().equals(novoStatus)){
                 System.out.println("----------------------------------------------------------");
-                System.out.println("O Status anterior é igual ao novo status, nenhuma alteração foi realizada.");
+                System.out.println("O status anterior é igual ao novo status, nenhuma alteração foi realizada.");
                 return false;
             }else {
                 beneficiario.setStatus(novoStatus);
                 System.out.println("----------------------------------------------------------");
-                System.out.println("O Status do Beneficiário " + beneficiario.getNome() + " foi alterado para " + novoStatus);
+                System.out.println("O status do beneficiário " + beneficiario.getNome() + " foi alterado para " + novoStatus);
                 return true;
             }
         } else{
@@ -97,13 +97,17 @@ public class Dentista extends Usuario{
     public boolean marcarConsulta(Beneficiario beneficiario, Consulta consulta, String dataConsulta){
         if(getVerificadorLogin() == 1) {
             if(beneficiario.getCpf().equals(consulta.getCpfBeneficiario()) && consulta.getStatus().equals("Realizada")){
+                System.out.println("----------------------------------------------------------");
                 System.out.println("Nova consulta marcada para o dia "+ dataConsulta);
                 consulta.setDataConsulta(dataConsulta);
+                consulta.setStatus("Pendente");
                 return true;
             } else if (beneficiario.getCpf().equals(consulta.getCpfBeneficiario()) && !consulta.getStatus().equals("Realizada")) {
+                System.out.println("----------------------------------------------------------");
                 System.out.println("O Beneficiário já tem uma consulta marcada para a data "+ consulta.getDataConsulta());
                 return false;
             } else {
+                System.out.println("----------------------------------------------------------");
                 System.out.println("O Beneficiário não tem registro no sistema. Favor entrar em contato com a Turma Do Bem para que eles informem o dentista parceiro mais próximo de sua localização");
                 return false;
             }
@@ -114,13 +118,15 @@ public class Dentista extends Usuario{
         }
     }
 
-    public boolean preencherProntuario(Prontuario prontuario, String nomeBeneficiario, String cpfBeneficiario, String anamneseBeneficiario, String observacoesCasoAtual, String diagnostico, String metodoTratamento, String evolucaoTratamento, String observacoes){
+    public boolean preencherProntuario(Prontuario prontuario, Beneficiario beneficiario, String anamneseBeneficiario, String observacoesCasoAtual, String diagnostico, String metodoTratamento, String evolucaoTratamento, String observacoes){
         if(getVerificadorLogin() == 1) {
-            if(!prontuario.getCpfBeneficiario().equals(cpfBeneficiario)) {
-                Prontuario prontuarioo = new Prontuario(getNome(), getCro(), nomeBeneficiario, cpfBeneficiario, anamneseBeneficiario, observacoesCasoAtual, diagnostico, metodoTratamento, evolucaoTratamento, observacoes);
-                System.out.println("Prontuário Preenchido!!");
+            if(prontuario == null) {
+                Prontuario prontuarioo = new Prontuario(getNome(), getCro(), beneficiario.getNome(), beneficiario.getCpf(), anamneseBeneficiario, observacoesCasoAtual, diagnostico, metodoTratamento, evolucaoTratamento, observacoes);
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Prontuário de "+beneficiario.getNome()+" preenchido!!");
                 return true;
-            } else{
+            } else if(prontuario.getCpfBeneficiario().equals(beneficiario.getCpf())){
+                System.out.println("----------------------------------------------------------");
                 System.out.println("O Prontuário desse Beneficiário já foi criado, favor usar a função de Atualizar Prontuário caso queira alterar alguma informação");
                 return false;
             }
@@ -129,7 +135,7 @@ public class Dentista extends Usuario{
             System.out.println("Realize login primeiro para realizar essa função");
             return false;
         }
-
+        return false;
     }
 
     public boolean atualizarProntuario(Prontuario prontuario, String cpfBeneficiario, String novaEvolucao, String novasObservacoes){
@@ -140,6 +146,7 @@ public class Dentista extends Usuario{
                 System.out.println("As informações foram atualizadas com sucesso");
                 return true;
             } else{
+                System.out.println("----------------------------------------------------------");
                 System.out.println("O Beneficiário informado ainda não tem um prontuário, favor utilizar a função Preencher Prontuário");
                 return false;
             }

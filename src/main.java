@@ -11,11 +11,12 @@ public class main {
 
 
         //Teste Consulta
-        Consulta consulta01 = new Consulta("Clinica Sorrisos","Rua 01", "Marcos", "123321", "Renato", "321123", "17/11/2026", "15:30", "Pendente");
+        Consulta consulta01 = new Consulta("Clinica Sorrisos","Rua 01", "Marcos", "123321", "Lesley", "765567", "17/11/2026", "15:30", "Pendente");
 
         consulta01.exibirStatus();
         consulta01.atualizarStatusConsulta("Realizada");
         consulta01.exibirStatus();
+        consulta01.atualizarStatusConsulta("Pendente"); //Para o teste em Beneficiário
 
 
         //Teste Doação
@@ -24,7 +25,7 @@ public class main {
 
 
         //Teste Prontuario
-        Prontuario prontuario01 = new Prontuario("Marcos", "123RA", "Renato", "321123", "Paciente relata dor aguda ao ingerir líquidos gelados. Nega alergias a medicamentos", "Apresenta leve inchaço na região do maxilar inferior direito e dificuldade de mastigação" , "Cárie profunda com comprometimento pulpar no dente 46. Gengivite leve", "Tratamento endodôntico (canal) e posterior restauração em resina", "Tratamento inciado recentemente, sem evoluções", "Retorno agendado para troca do curativo em 15 dias. Receitado Ibuprofeno em caso de dor");
+        Prontuario prontuario01 = new Prontuario("Marcos", "123RA", "Lesley", "765567", "Paciente relata dor aguda ao ingerir líquidos gelados. Nega alergias a medicamentos", "Apresenta leve inchaço na região do maxilar inferior direito e dificuldade de mastigação" , "Cárie profunda com comprometimento pulpar no dente 46. Gengivite leve", "Tratamento endodôntico (canal) e posterior restauração em resina", "Tratamento inciado recentemente, sem evoluções", "Retorno agendado para troca do curativo em 15 dias. Receitado Ibuprofeno em caso de dor");
         prontuario01.exibirInformacoesProntuario();
 
 
@@ -50,6 +51,40 @@ public class main {
         doadorPJ01.realizarLogin("908089","133Maria");
         doadorPJ01. realizarLogout();
         doadorPJ01.realizarLogin("908089","123Maria");
+
+
+        //Teste Beneficiario
+        Beneficiario beneficiario01 = new Beneficiario("Lesley", "765567", "123Lesley", "lesley@gmail.com", "11 98765-4321", "11/11/2011", 0,"Chica","345654", "11 96543-1234", "Chica@gmail.com", "53468-913", "Ativo");
+        beneficiario01.realizarLogin("765567", "123Lesley");
+        beneficiario01.irConsulta(consulta01,"17/11/2026");
+        beneficiario01.irConsulta(consulta01,"16/11/2026");
+        beneficiario01.irConsulta(consulta01,"17/11/2026");
+        beneficiario01.setCpf("765566");
+        beneficiario01.irConsulta(consulta01,"17/11/2026");
+        beneficiario01.irConsulta(consulta01,"16/11/2026");
+        beneficiario01.setCpf("765567");
+        beneficiario01.irConsulta(consulta01,"17/11/2026");
+        beneficiario01.cancelarConsulta(consulta01, "17/11/2026");
+        System.out.println(consulta01.getStatus());
+        beneficiario01.cancelarConsulta(consulta01, "17/11/2026");
+        beneficiario01.solicitarProntuario(prontuario01);
+        beneficiario01.exibirInfo();
+        beneficiario01.realizarLogout();
+
+
+        //Teste Dentista
+        Dentista dentista01 = new Dentista("Marcos", "123321", "123Marcos", "marcos@gmail.com", "11 93433-1234", "19/12/1990", 0,"123RA","40045-230","Bucomaxilo");
+        dentista01.realizarLogin("123321", "123Marcos");
+        dentista01.realizarConsulta(beneficiario01, consulta01);
+        dentista01.atualizarStatusBeneficiario(beneficiario01, "Inativo");
+        dentista01.atualizarStatusBeneficiario(beneficiario01, "Ativo");
+        dentista01.atualizarStatusBeneficiario(beneficiario01, "Ativo");
+
+        dentista01.marcarConsulta(beneficiario01, consulta01, "18/11/2026");
+        dentista01.marcarConsulta(beneficiario01, consulta01, "18/11/2026");
+
+        dentista01.preencherProntuario(null, beneficiario01, "Paciente relata dor aguda ao ingerir líquidos gelados. Nega alergias a medicamentos", "Apresenta leve inchaço na região do maxilar inferior direito e dificuldade de mastigação" , "Cárie profunda com comprometimento pulpar no dente 46. Gengivite leve", "Tratamento endodôntico (canal) e posterior restauração em resina", "Tratamento inciado recentemente, sem evoluções", "Retorno agendado para troca do curativo em 15 dias. Receitado Ibuprofeno em caso de dor");
+        dentista01.atualizarProntuario(prontuario01, )
 
 
 

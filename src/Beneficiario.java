@@ -64,28 +64,86 @@ public class Beneficiario extends Usuario{
         this.status = status;
     }
 
-    public boolean irConsulta(String dataConsulta){
-        System.out.println("Indo para a consulta na data "+ dataConsulta+"........");
-        return true;
+    public boolean irConsulta(Consulta consulta, String dataConsulta){
+        if(getVerificadorLogin() == 1) {
+            if(consulta.getCpfBeneficiario().equals(getCpf())){
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Verificando se existem consultas marcadas para "+ dataConsulta+"........");
+                if(consulta.getDataConsulta().equals(dataConsulta) && !consulta.getStatus().equals("Realizada") && !consulta.getStatus().equals("Cancelada")){
+                    System.out.println("Consulta encontrada na data "+ dataConsulta+"!!");
+                    System.out.println("Check-in realizado! Aguardando o dentista iniciar o atendimento...");
+                    return true;
+                } else if (consulta.getStatus().equals("Cancelada")){
+                    System.out.println("A consulta marcada para a data informada está cancelada, favor entrar em contato com o Dentista para marcar uma nova");
+                    return false;
+                } else{
+                    System.out.println("Não foram localizadas consultas nessa data ou ela já foi realizada, verifique com o Dentista responsável");
+                    return false;
+                }
+            } else{
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Não foram localizadas consultas marcadas para esse paciente, favor verificar com o dentista responsável");
+                return false;
+            }
+        } else{
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
+            return false;
+        }
     }
 
-    public boolean cancelarConsulta(String dataConsulta){
-        System.out.println("Cancelando consulta da data "+ dataConsulta+"........");
-        return true;
+    public boolean cancelarConsulta(Consulta consulta, String dataConsulta){
+        if(getVerificadorLogin() == 1) {
+            if(consulta.getCpfBeneficiario().equals(getCpf())){
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Verificando se existem consultas marcadas para "+ dataConsulta+"........");
+                if(consulta.getDataConsulta().equals(dataConsulta) && !consulta.getStatus().equals("Cancelada")){
+                    System.out.println("Consulta encontrada na data "+ dataConsulta+"!!");
+                    System.out.println("Aguarde........");
+                    System.out.println("Cancelamento realizado com sucesso!!");
+                    consulta.setStatus("Cancelada");
+                    return true;
+                }
+                else{
+                    System.out.println("A consulta marcada para a data "+dataConsulta+" já está cancelada.");
+                    return false;
+                }
+            } else{
+                System.out.println("----------------------------------------------------------");
+                System.out.println("Não foram localizadas consultas marcadas para esse paciente, favor verificar com o dentista responsável");
+                return false;
+            }
+        } else{
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
+            return false;
+        }
     }
 
     public void solicitarProntuario(Prontuario meuProntuario){
-        System.out.println("Solicitando informações de prontuário.......");
-        meuProntuario.exibirInformacoesProntuario();
+        if(getVerificadorLogin() == 1) {
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Solicitando informações de prontuário.......");
+            meuProntuario.exibirInformacoesProntuario();
+        } else{
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
+        }
     }
 
     public void exibirInfo(){
-        System.out.println("Buscando informações do Beneficiário......");
-        System.out.println("Informações encontradas! Seguem abaixo");
-        System.out.println("Nome do Beneficiário: "+this.getNome());
-        System.out.println("Data de Nascimento: "+this.getDataNascimento());
-        System.out.println("Nome do Responsável: "+this.getNomeResponsavel());
-        System.out.println("Telefone do Responsável: "+this.getTelefoneResponsavel());
-        System.out.println("Status do Beneficiário: "+this.getStatus());
+        if(getVerificadorLogin() == 1) {
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Buscando informações do Beneficiário......");
+            System.out.println("Informações encontradas! Seguem abaixo");
+            System.out.println("Nome do Beneficiário: "+this.getNome());
+            System.out.println("Data de Nascimento: "+this.getDataNascimento());
+            System.out.println("Nome do Responsável: "+this.getNomeResponsavel());
+            System.out.println("Telefone do Responsável: "+this.getTelefoneResponsavel());
+            System.out.println("Status do Beneficiário: "+this.getStatus());
+        } else{
+            System.out.println("----------------------------------------------------------");
+            System.out.println("Realize login primeiro para realizar essa função");
+        }
     }
 }
